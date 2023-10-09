@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Classid\LaravelQueryBuilderExtend\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -37,7 +37,6 @@ class GenerateQueryCommand extends Command
     public function __construct(Filesystem $files)
     {
         parent::__construct();
-
         $this->files = $files;
     }
 

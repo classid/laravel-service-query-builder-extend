@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Concerns;
+namespace Classid\LaravelQueryBuilderExtend\Traits;
 
-use App\Contracts\Abstracts\BaseQueryBuilder;
-use App\Contracts\Abstracts\BaseQueryBuilderExtend;
+use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
+use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilderExtend;
+use Exception;
 
 trait QueryExtend
 {
@@ -11,14 +12,14 @@ trait QueryExtend
      * @param $name
      * @param $arguments
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public static function __callStatic($name, $arguments)
     {
         /** @var BaseQueryBuilder $instance */
         $instance = new static();
         if (!property_exists($instance, 'builder') || is_null($instance->builder)) {
-            throw new \Exception("Property 'builder' does not exist or is not initialized.");
+            throw new Exception("Property 'builder' does not exist or is not initialized.");
         }
 
 
@@ -44,12 +45,12 @@ trait QueryExtend
      * @param $name
      * @param $arguments
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function __call($name, $arguments)
     {
         if (!property_exists($this, 'builder') || is_null($this->builder)) {
-            throw new \Exception("Property 'builder' does not exist or is not initialized.");
+            throw new Exception("Property 'builder' does not exist or is not initialized.");
         }
 
         if (method_exists(new BaseQueryBuilderExtend($this), $name)) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts\Interfaces;
+namespace Classid\LaravelQueryBuilderExtend\Contracts\Interfaces;
 
 use Illuminate\Database\Eloquent\Builder;
 

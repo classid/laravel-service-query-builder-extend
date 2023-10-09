@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Contracts\Abstracts;
+namespace Classid\LaravelQueryBuilderExtend\Contracts\Abstracts;
 
-use App\Concerns\QueryFilter;
-use App\Concerns\QueryOrder;
+use Classid\LaravelQueryBuilderExtend\Traits\QueryFilter;
+use Classid\LaravelQueryBuilderExtend\Traits\QueryOrder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -444,14 +445,18 @@ class BaseQueryBuilderExtend
     /**
      * @param array $whereClause
      * @param array $columns
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param int|null $perPage
+     * @return LengthAwarePaginator
      */
-    public function getAllDataPaginated(array $whereClause = [], array $columns = ["*"])
+    public function getAllDataPaginated(array $whereClause = [], array $columns = ["*"], ?int $perPage = null):LengthAwarePaginator
     {
+        if (!$perPage) {
+            $perPage = request()->query("perpage", config('queryextend.perpage'));
+        }
         return $this->builder
             ->select($columns)
             ->where($whereClause)
-            ->paginate(request()->query("perpage", config("app.perpage")));
+            ->paginate($perPage);
     }
 
     /**

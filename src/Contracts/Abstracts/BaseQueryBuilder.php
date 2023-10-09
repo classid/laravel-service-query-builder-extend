@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Contracts\Abstracts;
+namespace Classid\LaravelQueryBuilderExtend\Contracts\Abstracts;
 
-use App\Concerns\QueryExtend;
-use App\Contracts\Interfaces\BaseQueryBuilderInterface;
+use Classid\LaravelQueryBuilderExtend\Traits\QueryExtend;
+use Classid\LaravelQueryBuilderExtend\Contracts\Interfaces\BaseQueryBuilderInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

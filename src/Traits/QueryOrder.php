@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Concerns;
+namespace Classid\LaravelQueryBuilderExtend\Traits;
 
-use App\Contracts\Abstracts\BaseQueryBuilder;
+use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
 trait QueryOrder
