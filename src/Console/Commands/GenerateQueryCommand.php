@@ -79,7 +79,7 @@ class GenerateQueryCommand extends Command
         }
 
         return [
-            'NAMESPACE' => ucwords(str_replace("/", "\\", config("services.target_query_dir", "app/Queries"))) . $namespace,
+            'NAMESPACE' => ucwords(str_replace("/", "\\", config("queryextend.target_query_dir", "app/Queries"))) . $namespace,
             'CLASS_NAME' => end($explodedClassName),
             'MODEL_NAME' => end($explodedModelName)
         ];

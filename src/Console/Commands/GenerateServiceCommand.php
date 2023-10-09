@@ -75,7 +75,7 @@ class GenerateServiceCommand extends Command
         }
 
         return [
-            'NAMESPACE' => ucwords(str_replace("/", "\\", config("services.target_service_dir", "app/Services"))) . $namespace,
+            'NAMESPACE' => ucwords(str_replace("/", "\\", config("queryextend.target_service_dir", "app/Services"))) . $namespace,
             'CLASS_NAME' => end($explodedClassName)
         ];
     }
