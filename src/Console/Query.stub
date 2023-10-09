@@ -1,0 +1,22 @@
+<?php
+
+namespace *NAMESPACE*;
+use App\Contracts\Abstracts\BaseQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\*MODEL_NAME*;
+
+class *CLASS_NAME* extends BaseQueryBuilder
+{
+    public function getBaseQuery(): Builder
+    {
+        return *MODEL_NAME*::query();
+    }
+
+    /**
+     * use this to add custom query on filterColumn method
+     * @return void
+     */
+    public function applyFilterParams(): void
+    {
+    }
+}
