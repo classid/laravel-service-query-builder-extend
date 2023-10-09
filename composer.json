@@ -1,0 +1,15 @@
+{
+    "name": "classid/laravel-query-builder-extend",
+    "autoload": {
+        "psr-4": {
+            "Classid\\LaravelQueryBuilderExtend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Iqbal Atma Muliawan",
+            "email": "iqbalatma@gmail.com"
+        }
+    ],
+    "require": {}
+}
