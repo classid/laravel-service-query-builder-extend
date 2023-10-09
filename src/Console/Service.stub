@@ -1,7 +1,7 @@
 <?php
 
 namespace *NAMESPACE*;
-use App\Contracts\Abstracts\BaseService;
+use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseService;
 
 class *CLASS_NAME* extends BaseService
 {
