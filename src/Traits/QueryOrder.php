@@ -18,7 +18,11 @@ trait QueryOrder
         $this->defaultOrderColumn();
 
         if (is_array($orderableColumns)) {
-            $requestQueryParam = request()->query();
+            $requestQueryParam = config("queryextend.order_query_param_root") ?
+                request()->query(config("queryextend.order_query_param_root"), []) :
+                request()->query();
+
+
             $columns = array_intersect_key($requestQueryParam, $orderableColumns);
 
             foreach ($columns as $columnName => $requestDirection) {

@@ -251,7 +251,9 @@ trait QueryFilter
      */
     private function setRequestQueryParam(): self
     {
-        $this->requestQueryParam = request()->query();
+        $this->requestQueryParam = config("queryextend.filter_query_param_root") ?
+            request()->query(config("queryextend.filter_query_param_root"), []) :
+            request()->query();
 
         return $this;
     }

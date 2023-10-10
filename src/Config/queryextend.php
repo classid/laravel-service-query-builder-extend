@@ -64,4 +64,28 @@ return [
     |
     */
     "base_query_parent_class" => "Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder",
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Array key name for query param grouping on filter
+    |--------------------------------------------------------------------------
+    |
+    | When you using filterColumn you will receive request with grouping array
+    | set to null if you don't want to use this array key
+    |
+    */
+    "filter_query_param_root" => "filter",
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Array key name for query param grouping on order
+    |--------------------------------------------------------------------------
+    |
+    | When you using orderColumn you will receive request with grouping array
+    | set to null if you don't want to use this array key
+    |
+    */
+    "order_query_param_root" => "order",
 ];
