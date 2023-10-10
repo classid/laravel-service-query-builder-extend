@@ -45,8 +45,22 @@ trait QueryOrder
      */
     private function defaultOrderColumn(): void
     {
-        $this->builder->when(!empty(request()->query("order_created_at")), function (Builder $query) {
-            $query->orderBy("created_at", request()->query("order_created_at"));
+        if ($orderKey = config('queryextend.order_query_param_root')) {
+            $requestCreatedOrder = empty(request()->query()[$orderKey]["created_at"]);
+        } else {
+            $requestCreatedOrder = empty(request()->query("order_created_at"));
+        }
+
+        $this->builder->when(!$requestCreatedOrder, function (Builder $query) use ($orderKey) {
+            $direction = $orderKey ?
+                request()->query()[$orderKey]["created_at"] :
+                request()->query("order_created_at");
+
+            $direction = strtolower($direction);
+
+            if ($direction === "asc" || $direction === "desc") {
+                $query->orderBy("created_at", $direction);
+            }
         });
     }
 
