@@ -78,10 +78,15 @@ class GenerateQueryCommand extends Command
             $namespace = "\\" . implode("\\", $explodedNamespace);
         }
 
+        $baseQueryNamespace = config("queryextend.base_query_parent_class");
+        $baseQueryNamespaceExploded = explode('\\', $baseQueryNamespace);
+
         return [
             'NAMESPACE' => ucwords(str_replace("/", "\\", config("queryextend.target_query_dir", "app/Queries"))) . $namespace,
             'CLASS_NAME' => end($explodedClassName),
-            'MODEL_NAME' => end($explodedModelName)
+            'MODEL_NAME' => end($explodedModelName),
+            'BASE_QUERY_PARENT_CLASS_NAMESPACE' => $baseQueryNamespace,
+            'BASE_QUERY_PARENT_CLASS' => end($baseQueryNamespaceExploded)
         ];
     }
 

@@ -1,11 +1,11 @@
 <?php
 
 namespace *NAMESPACE*;
-use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
+use *BASE_QUERY_PARENT_CLASS_NAMESPACE*;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\*MODEL_NAME*;
 
-class *CLASS_NAME* extends BaseQueryBuilder
+class *CLASS_NAME* extends *BASE_QUERY_PARENT_CLASS*
 {
     public function getBaseQuery(): Builder
     {

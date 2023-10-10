@@ -1,8 +1,8 @@
 {
-    "name": "classid/laravel-query-builder-extend",
+    "name": "classid/laravel-service-query-builder-extend",
     "autoload": {
         "psr-4": {
-            "Classid\\LaravelQueryBuilderExtend\\": "src/"
+            "Classid\\LaravelServiceQueryBuilderExtend\\": "src/"
         }
     },
     "authors": [

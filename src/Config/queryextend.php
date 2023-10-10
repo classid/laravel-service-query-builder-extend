@@ -41,4 +41,27 @@ return [
     |
     */
     "target_service_dir" => "app/Services",
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base service extend on generate console
+    |--------------------------------------------------------------------------
+    |
+    | When you want to custom base service and override some method, you can
+    | also change console generated parent class of Service
+    |
+    */
+    "base_service_parent_class" => "Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseService",
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base repository extend on generate console
+    |--------------------------------------------------------------------------
+    |
+    | When you want to custom base repository and override some method, you can
+    | also change console generated parent class of Repository
+    |
+    */
+    "base_query_parent_class" => "Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder",
 ];
