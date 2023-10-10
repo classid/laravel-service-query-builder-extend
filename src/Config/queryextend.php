@@ -52,7 +52,7 @@ return [
     | also change console generated parent class of Service
     |
     */
-    "base_service_parent_class" => "Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseService",
+    "base_service_parent_class" => "Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseService",
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
     | also change console generated parent class of Repository
     |
     */
-    "base_query_parent_class" => "Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder",
+    "base_query_parent_class" => "Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder",
 
 
     /*
