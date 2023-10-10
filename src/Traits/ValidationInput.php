@@ -1,6 +1,6 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Traits;
+namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;

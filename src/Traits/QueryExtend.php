@@ -1,9 +1,9 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Traits;
+namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 
-use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
-use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilderExtend;
+use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
+use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilderExtend;
 use Exception;
 
 trait QueryExtend

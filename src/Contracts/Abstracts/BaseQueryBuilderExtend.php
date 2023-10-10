@@ -1,9 +1,9 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Contracts\Abstracts;
+namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
 
-use Classid\LaravelQueryBuilderExtend\Traits\QueryFilter;
-use Classid\LaravelQueryBuilderExtend\Traits\QueryOrder;
+use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryFilter;
+use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryOrder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

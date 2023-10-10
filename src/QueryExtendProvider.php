@@ -1,9 +1,9 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend;
+namespace Classid\LaravelServiceQueryBuilderExtend;
 
-use Classid\LaravelQueryBuilderExtend\Console\Commands\GenerateQueryCommand;
-use Classid\LaravelQueryBuilderExtend\Console\Commands\GenerateServiceCommand;
+use Classid\LaravelServiceQueryBuilderExtend\Console\Commands\GenerateQueryCommand;
+use Classid\LaravelServiceQueryBuilderExtend\Console\Commands\GenerateServiceCommand;
 use Illuminate\Support\ServiceProvider;
 
 class QueryExtendProvider extends ServiceProvider

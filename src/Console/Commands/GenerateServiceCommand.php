@@ -1,6 +1,6 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Console\Commands;
+namespace Classid\LaravelServiceQueryBuilderExtend\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

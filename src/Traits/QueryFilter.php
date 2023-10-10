@@ -1,8 +1,8 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Traits;
+namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 
-use Classid\LaravelQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
+use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Classid\LaravelQueryBuilderExtend\Contracts\Abstracts;
+namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
 
 
-use Classid\LaravelQueryBuilderExtend\Traits\ValidationInput;
+use Classid\LaravelServiceQueryBuilderExtend\Traits\ValidationInput;
 
 abstract class BaseService
 {
