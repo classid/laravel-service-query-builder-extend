@@ -97,7 +97,8 @@ trait QueryFilter
 
             // looping for every column on relation
             foreach ($intersectedFilter as $requestedKey => $requestValue) {
-                $dbOperator = $this->getDBOperator($requestedKey);
+                $dbOperator = $this->getRelationDBOperator($filterableColumns, $requestedKey);
+
                 $dbColumnName = $this->getRelationDBColumn($relationName, $requestedKey);
 
 
@@ -200,6 +201,21 @@ trait QueryFilter
         if (isset($filterableColumns[$requestedKey]["operator"])) {
             $dbOperator = $filterableColumns[$requestedKey]["operator"];
         }
+        return $dbOperator;
+    }
+
+    /**
+     * @param array $filterableColumns
+     * @param string $requestedKey
+     * @return string
+     */
+    public function getRelationDBOperator(array $filterableColumns, string $requestedKey):string
+    {
+        $dbOperator = self::$defaultOperator;
+        if (isset($filterableColumns[$requestedKey]["operator"])) {
+            $dbOperator = $filterableColumns[$requestedKey]["operator"];
+        }
+
         return $dbOperator;
     }
 
