@@ -54,10 +54,10 @@ trait ValidationInput
      */
     protected function validate(array $requestedData, string $requestClass):FormRequest
     {
+        request()->merge($requestedData);
+
+        /** @var FormRequest $storeUserRequest */
         $storeUserRequest = Container::getInstance()->make($requestClass);
-
-
-        $storeUserRequest->replace($requestedData);
         $storeUserRequest->validateResolved();
 
         $this->setValidatedData($storeUserRequest->validated());
