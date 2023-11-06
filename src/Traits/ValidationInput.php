@@ -17,28 +17,46 @@ trait ValidationInput
     protected array $validatedData;
 
     /**
-     * remove on next upgrade
-     * @deprecated use validate instead
      * @param array $data
-     * @param Request $request
+     * @param Request|string $request
      * @return array
      * @throws ValidationException
      */
-    public function validated(array $data, Request $request): array
+    public function validated(array $requestedData, Request|string $request): array
     {
-        if (!$request->authorize())
-            throw new AuthorizationException("You are unauthorized to access this resource");
+        $this->setRequestedData($requestedData);
 
-        $validator = Validator::make($data, $request->rules(), $request->messages())->validate();
+        if ($request instanceof Request) {
+            if (!$request->authorize())
+                throw new AuthorizationException("You are unauthorized to access this resource");
+            $validatedData = Validator::make($requestedData, $request->rules(), $request->messages())->validate();
+            $this->setValidatedData($validatedData);
+        }else{
+            $validatedData = $this->validate($requestedData, $request)->validated();
+        }
 
-        $this->setRequestedData($validator);
-        $this->setValidatedData($validator);
-        return $validator;
+
+        return $validatedData;
+    }
+
+    
+    /**
+     * @throws BindingResolutionException
+     */
+    protected function validate(array $requestedData, string $requestClass): FormRequest
+    {
+        request()->merge($requestedData);
+
+        /** @var FormRequest $storeUserRequest */
+        $storeUserRequest = Container::getInstance()->make($requestClass);
+        $storeUserRequest->validateResolved();
+
+        $this->setValidatedData($storeUserRequest->validated());
+        return $storeUserRequest;
     }
 
 
     /**
-     * @deprecated use setValidatedData instead
      * @param array $requestedData
      * @return ValidationInput|BaseService
      */
@@ -50,19 +68,13 @@ trait ValidationInput
 
 
     /**
-     * @throws BindingResolutionException
+     * @return array
      */
-    protected function validate(array $requestedData, string $requestClass):FormRequest
+    protected function getRequestedData(): array
     {
-        request()->merge($requestedData);
-
-        /** @var FormRequest $storeUserRequest */
-        $storeUserRequest = Container::getInstance()->make($requestClass);
-        $storeUserRequest->validateResolved();
-
-        $this->setValidatedData($storeUserRequest->validated());
-        return $storeUserRequest;
+        return $this->requestedData;
     }
+
 
     /**
      * @return array
@@ -76,7 +88,7 @@ trait ValidationInput
      * @param array $validatedData
      * @return void
      */
-    protected function setValidatedData(array $validatedData):void
+    protected function setValidatedData(array $validatedData): void
     {
         $this->validatedData = $validatedData;
     }
