@@ -4,8 +4,12 @@ namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
 
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryExtend;
 use Classid\LaravelServiceQueryBuilderExtend\Contracts\Interfaces\BaseQueryBuilderInterface;
+use Closure;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * @method static getAllDataPaginated(array $whereClause = [], array $columns = ["*"])
@@ -33,6 +37,68 @@ use Illuminate\Database\Eloquent\Model;
  * @method BaseQueryBuilder orderColumn(array|string|null $orderableColumns = null, string $direction = "ASC")
  * @method static BaseQueryBuilder filterColumn(?array $filterableColumns = null, ?array $relationFilterableColumns = null)
  * @method BaseQueryBuilder filterColumn(?array $filterableColumns = null, ?array $relationFilterableColumns = null)
+ * @method static BaseQueryBuilder orWhereColumn(array|string $first, ?string $operator = null, ?string $second = null)
+ * @method BaseQueryBuilder orWhereColumn(array|string $first, ?string $operator = null, ?string $second = null)
+ * @method static BaseQueryBuilder whereColumn(array|string $first, ?string $operator = null, ?string $second = null, ?string $boolean = 'and')
+ * @method BaseQueryBuilder whereColumn(array|string $first, ?string $operator = null, ?string $second = null, ?string $boolean = 'and')
+ * @method static BaseQueryBuilder whereTime(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method BaseQueryBuilder whereTime(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereYear(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method BaseQueryBuilder whereYear(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereDay(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method BaseQueryBuilder whereDay(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereMonth(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method BaseQueryBuilder whereMonth(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereDate(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method BaseQueryBuilder whereDate(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereNotNull(string|array $columns, string $boolean = 'and')
+ * @method BaseQueryBuilder whereNotNull(string|array $columns, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereNull(array|string $columns, string $boolean = 'and', bool $not = false)
+ * @method BaseQueryBuilder whereNull(array|string $columns, string $boolean = 'and', bool $not = false)
+ * @method static BaseQueryBuilder whereNotIn(string $column, array $values, string $boolean = 'and')
+ * @method BaseQueryBuilder whereNotIn(string $column, array $values, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereIn(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method BaseQueryBuilder whereIn(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method static BaseQueryBuilder whereNotBetweenColumns(string $column, array $values, string $boolean = 'and')
+ * @method BaseQueryBuilder whereNotBetweenColumns(string $column, array $values, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereBetweenColumns(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method BaseQueryBuilder whereBetweenColumns(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method static BaseQueryBuilder whereNotBetween(string $column, array|string $values, string $boolean = 'and')
+ * @method BaseQueryBuilder whereNotBetween(string $column, array|string $values, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereBetween(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method BaseQueryBuilder whereBetween(string $column, array $values, string $boolean = 'and', bool $not = false)
+ * @method static BaseQueryBuilder whereNot($column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
+ * @method BaseQueryBuilder whereNot($column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
+ * @method static BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, ?string $value = null)
+ * @method BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, ?string $value = null)
+ * @method static BaseQueryBuilder where(array|string $column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
+ * @method BaseQueryBuilder where(array|string $column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
+ * @method static BaseQueryBuilder orWhereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
+ * @method BaseQueryBuilder orWhereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
+ * @method static BaseQueryBuilder whereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
+ * @method BaseQueryBuilder whereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
+ * @method static BaseQueryBuilder has(Relation|string $relation, string $operator = '>=', int $count = 1, string $boolean = 'and', Closure|null $callback = null)
+ * @method BaseQueryBuilder has(Relation|string $relation, string $operator = '>=', int $count = 1, string $boolean = 'and', Closure|null $callback = null)
+ * @method static BaseQueryBuilder withSum(array|string $relation, string $column)
+ * @method BaseQueryBuilder withSum(array|string $relation, string $column)
+ * @method static BaseQueryBuilder withMax(array|string $relation, string $column)
+ * @method BaseQueryBuilder withMax(array|string $relation, string $column)
+ * @method static BaseQueryBuilder withMin(array|string $relation, string $column)
+ * @method BaseQueryBuilder withMin(array|string $relation, string $column)
+ * @method static BaseQueryBuilder withCount(mixed $relations)
+ * @method BaseQueryBuilder withCount(mixed $relations)
+ * @method static BaseQueryBuilder withAvg(array|string $relation, string $column)
+ * @method BaseQueryBuilder withAvg(array|string $relation, string $column)
+ * @method static BaseQueryBuilder without(array|string $relations)
+ * @method BaseQueryBuilder without(array|string $relations)
+ * @method static BaseQueryBuilder with(array|string $relations)
+ * @method BaseQueryBuilder with(array|string $relations)
+ * @method static int delete()
+ * @method int delete()
+ * @method static int update(array $requestedData)
+ * @method int update(array $requestedData)
+ * @method static int get(): Collection|null
+ * @method int get(): Collection|null
  * @mixin QueryExtend
  *
  */

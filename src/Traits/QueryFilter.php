@@ -18,6 +18,7 @@ trait QueryFilter
      * @param array|null $filterableColumns
      * @param array|null $relationFilterableColumns
      * @return BaseQueryBuilder|QueryFilter
+     * @throws ValidationException
      */
     public function _filterColumn(?array $filterableColumns = null, ?array $relationFilterableColumns = null): self
     {

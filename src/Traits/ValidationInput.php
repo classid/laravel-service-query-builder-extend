@@ -17,9 +17,11 @@ trait ValidationInput
     protected array $validatedData;
 
     /**
-     * @param array $data
+     * @param array $requestedData
      * @param Request|string $request
      * @return array
+     * @throws AuthorizationException
+     * @throws BindingResolutionException
      * @throws ValidationException
      */
     public function validated(array $requestedData, Request|string $request): array
@@ -30,29 +32,18 @@ trait ValidationInput
             if (!$request->authorize())
                 throw new AuthorizationException("You are unauthorized to access this resource");
             $validatedData = Validator::make($requestedData, $request->rules(), $request->messages())->validate();
-            $this->setValidatedData($validatedData);
         }else{
-            $validatedData = $this->validate($requestedData, $request)->validated();
+            request()->merge($requestedData);
+
+            /** @var FormRequest $requestClass */
+            $requestClass = Container::getInstance()->make($request);
+            $requestClass->validateResolved();
+
+            $validatedData = $requestClass->validated();
         }
 
-
+        $this->setValidatedData($validatedData);
         return $validatedData;
-    }
-
-    
-    /**
-     * @throws BindingResolutionException
-     */
-    protected function validate(array $requestedData, string $requestClass): FormRequest
-    {
-        request()->merge($requestedData);
-
-        /** @var FormRequest $storeUserRequest */
-        $storeUserRequest = Container::getInstance()->make($requestClass);
-        $storeUserRequest->validateResolved();
-
-        $this->setValidatedData($storeUserRequest->validated());
-        return $storeUserRequest;
     }
 
 

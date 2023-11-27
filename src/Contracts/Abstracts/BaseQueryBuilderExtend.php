@@ -4,19 +4,22 @@ namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
 
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryFilter;
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryOrder;
+use Closure;
+use DateTimeInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Validation\ValidationException;
 
 class BaseQueryBuilderExtend
 {
     use QueryOrder {
-        _orderColumn as private orderColumnTrait;
+        QueryOrder::_orderColumn as private orderColumnTrait;
     }
     use QueryFilter {
-        _filterColumn as private filterColumnTrait;
+        QueryFilter::_filterColumn as private filterColumnTrait;
     }
 
     public Builder $builder;
@@ -28,7 +31,12 @@ class BaseQueryBuilderExtend
         $this->builder = $baseQueryBuilder->builder;
     }
 
-    public function forwardScope($name, $arguments)
+    /**
+     * @param $name
+     * @param $arguments
+     * @return BaseQueryBuilder
+     */
+    public function forwardScope($name, $arguments): BaseQueryBuilder
     {
         $this->builder->getModel()->$name($this->builder, ...$arguments);
         return $this->baseQueryBuilder;
@@ -38,6 +46,7 @@ class BaseQueryBuilderExtend
      * @param array|null $filterableColumns
      * @param array|null $relationFilterableColumns
      * @return BaseQueryBuilder
+     * @throws ValidationException
      */
     public function filterColumn(?array $filterableColumns = null, ?array $relationFilterableColumns = null): BaseQueryBuilder
     {
@@ -167,10 +176,10 @@ class BaseQueryBuilderExtend
      * @param string $operator
      * @param int $count
      * @param string $boolean
-     * @param \Closure|null $callback
+     * @param Closure|null $callback
      * @return BaseQueryBuilder
      */
-    public function has(Relation|string $relation, string $operator = '>=', int $count = 1, string $boolean = 'and', \Closure|null $callback = null): BaseQueryBuilder
+    public function has(Relation|string $relation, string $operator = '>=', int $count = 1, string $boolean = 'and', Closure|null $callback = null): BaseQueryBuilder
     {
         $this->builder->has($relation, $operator, $count, $boolean, $callback);
         return $this->baseQueryBuilder;
@@ -179,12 +188,12 @@ class BaseQueryBuilderExtend
 
     /**
      * @param string $relation
-     * @param \Closure|null $callback
+     * @param Closure|null $callback
      * @param string $operator
      * @param int $count
      * @return BaseQueryBuilder
      */
-    public function whereHas(string $relation, \Closure|null $callback = null, string $operator = '>=', int $count = 1): BaseQueryBuilder
+    public function whereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1): BaseQueryBuilder
     {
         $this->builder->whereHas($relation, $callback, $operator, $count);
         return $this->baseQueryBuilder;
@@ -193,12 +202,12 @@ class BaseQueryBuilderExtend
 
     /**
      * @param string $relation
-     * @param \Closure|null $callback
+     * @param Closure|null $callback
      * @param string $operator
      * @param int $count
      * @return BaseQueryBuilder
      */
-    public function orWhereHas(string $relation, \Closure|null $callback = null, string $operator = '>=', int $count = 1): BaseQueryBuilder
+    public function orWhereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1): BaseQueryBuilder
     {
         $this->builder->orWhereHas($relation, $callback, $operator, $count);
         return $this->baseQueryBuilder;
@@ -351,11 +360,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string $column
      * @param string $operator
-     * @param \DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereDate(string $column, string $operator, \DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereDate(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereDate($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -365,11 +374,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string $column
      * @param string $operator
-     * @param \DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereMonth(string $column, string $operator, \DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereMonth(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereMonth($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -378,11 +387,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string $column
      * @param string $operator
-     * @param \DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereDay(string $column, string $operator, \DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereDay(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereDay($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -392,11 +401,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string $column
      * @param string $operator
-     * @param \DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereYear(string $column, string $operator, \DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereYear(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereYear($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -406,11 +415,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string $column
      * @param string $operator
-     * @param \DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereTime(string $column, string $operator, \DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereTime(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereTime($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -464,7 +473,7 @@ class BaseQueryBuilderExtend
      * @param array $columns
      * @return Builder[]|Collection
      */
-    public function getAllData(array $whereClause = [], array $columns = ["*"])
+    public function getAllData(array $whereClause = [], array $columns = ["*"]): Collection|array
     {
         return $this->builder
             ->select($columns)
