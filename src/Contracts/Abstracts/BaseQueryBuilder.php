@@ -97,8 +97,8 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method int delete()
  * @method static int update(array $requestedData)
  * @method int update(array $requestedData)
- * @method static int get(): Collection|null
- * @method int get(): Collection|null
+ * @method static Collection get()
+ * @method Collection get()
  * @mixin QueryExtend
  *
  */

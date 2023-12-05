@@ -68,9 +68,9 @@ class BaseQueryBuilderExtend
     }
 
     /**
-     * @return Collection|null
+     * @return Collection
      */
-    public function get(): Collection|null
+    public function get(): Collection
     {
         return $this->builder->get();
     }
