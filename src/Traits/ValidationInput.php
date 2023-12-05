@@ -37,7 +37,6 @@ trait ValidationInput
 
             /** @var FormRequest $requestClass */
             $requestClass = Container::getInstance()->make($request);
-            $requestClass->validateResolved();
 
             $validatedData = $requestClass->validated();
         }
