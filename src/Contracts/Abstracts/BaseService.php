@@ -3,19 +3,19 @@
 namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
 
 
-use Classid\LaravelServiceQueryBuilderExtend\Contracts\Interfaces\IModel;
 use Classid\LaravelServiceQueryBuilderExtend\Traits\ValidationInput;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseService
 {
     use ValidationInput;
 
     /**
-     * @param IModel $model
+     * @param Model $model
      * @param array $relations
      * @return bool
      */
-    protected function isRecordUsed(IModel $model, array $relations):bool{
+    protected function isRecordUsed(Model $model, array $relations):bool{
         foreach ($relations as $relation){
             if($model->{$relation}()->exists()){
                 return true;
