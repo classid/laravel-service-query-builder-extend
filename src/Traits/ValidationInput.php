@@ -32,7 +32,7 @@ trait ValidationInput
             if (!$request->authorize())
                 throw new AuthorizationException("You are unauthorized to access this resource");
             $validatedData = Validator::make($requestedData, $request->rules(), $request->messages())->validate();
-        }else{
+        } else {
             request()->merge($requestedData);
 
             /** @var FormRequest $requestClass */
@@ -59,19 +59,27 @@ trait ValidationInput
 
 
     /**
-     * @return array
+     * @param string|null $key
+     * @return array|string|null
      */
-    protected function getRequestedData(): array
+    protected function getRequestedData(string|null $key = null): array|string|null
     {
+        if ($key) {
+            return $this->requestedData[$key] ?? null;
+        }
         return $this->requestedData;
     }
 
 
     /**
-     * @return array
+     * @param string|null $key
+     * @return array|string|null
      */
-    protected function getValidatedData(): array
+    protected function getValidatedData(string $key = null): array|string|null
     {
+        if ($key) {
+            return $this->requestedData[$key] ?? null;
+        }
         return $this->validatedData;
     }
 
