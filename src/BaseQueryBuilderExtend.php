@@ -6,6 +6,7 @@ use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryFilter;
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryOrder;
 use Closure;
 use DateTimeInterface;
+use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -97,11 +98,12 @@ class BaseQueryBuilderExtend
 
     /**
      * @param array|string $relations
+     * @param Closure|string|null $callback
      * @return BaseQueryBuilder
      */
-    public function with(array|string $relations): BaseQueryBuilder
+    public function with(array|string $relations, Closure|null|string $callback = null): BaseQueryBuilder
     {
-        $this->builder->with($relations);
+        $this->builder->with($relations, $callback);
         return $this->baseQueryBuilder;
     }
 
@@ -218,13 +220,13 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param array|string $column
-     * @param string|null $operator
+     * @param array|string|Closure|Expression $column
+     * @param mixed $operator
      * @param mixed $value
-     * @param string|null $boolean
+     * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function where(array|string $column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and'): BaseQueryBuilder
+    public function where(array|string|Closure|Expression $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->where($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -232,12 +234,12 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param array|string $column
-     * @param string|null $operator
+     * @param array|Closure|Expression|string $column
+     * @param mixed $operator
      * @param mixed $value
      * @return BaseQueryBuilder
      */
-    public function orWhere(array|string $column, ?string $operator = null, mixed $value = null): BaseQueryBuilder
+    public function orWhere(array|Closure|Expression|string $column, mixed $operator = null, mixed $value = null): BaseQueryBuilder
     {
         $this->builder->orWhere($column, $operator, $value);
         return $this->baseQueryBuilder;
@@ -245,13 +247,13 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param $column
-     * @param string|null $operator
+     * @param array|Closure|Expression|string $column
+     * @param mixed $operator
      * @param mixed $value
-     * @param string|null $boolean
+     * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNot($column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and'): BaseQueryBuilder
+    public function whereNot(array|Closure|Expression|string $column, mixed $operator = null, mixed $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNot($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -259,13 +261,13 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param iterable $values
      * @param string $boolean
      * @param bool $not
      * @return BaseQueryBuilder
      */
-    public function whereBetween(string $column, iterable $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
+    public function whereBetween(Expression|string $column, iterable $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
     {
         $this->builder->whereBetween($column, $values, $boolean, $not);
         return $this->baseQueryBuilder;
@@ -273,25 +275,25 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param iterable $values
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNotBetween(string $column, iterable $values, string $boolean = 'and'): BaseQueryBuilder
+    public function whereNotBetween(Expression|string $column, iterable $values, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNotBetween($column, $values, $boolean);
         return $this->baseQueryBuilder;
     }
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param array $values
      * @param string $boolean
      * @param bool $not
      * @return BaseQueryBuilder
      */
-    public function whereBetweenColumns(string $column, array $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
+    public function whereBetweenColumns(Expression|string $column, array $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
     {
         $this->builder->whereBetweenColumns($column, $values, $boolean, $not);
         return $this->baseQueryBuilder;
@@ -299,49 +301,49 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param array $values
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNotBetweenColumns(string $column, array $values, string $boolean = 'and'): BaseQueryBuilder
+    public function whereNotBetweenColumns(Expression|string $column, array $values, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNotBetweenColumns($column, $values, $boolean);
         return $this->baseQueryBuilder;
     }
 
     /**
-     * @param string $column
-     * @param array $values
+     * @param Expression|string $column
+     * @param mixed $values
      * @param string $boolean
      * @param bool $not
      * @return BaseQueryBuilder
      */
-    public function whereIn(string $column, array $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
+    public function whereIn(Expression|string $column, mixed $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
     {
         $this->builder->whereIn($column, $values, $boolean, $not);
         return $this->baseQueryBuilder;
     }
 
     /**
-     * @param string $column
-     * @param array $values
+     * @param Expression|string $column
+     * @param mixed $values
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNotIn(string $column, array $values, string $boolean = 'and'): BaseQueryBuilder
+    public function whereNotIn(Expression|string $column, mixed $values, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNotIn($column, $values, $boolean);
         return $this->baseQueryBuilder;
     }
 
     /**
-     * @param array|string $columns
+     * @param array|Expression|string $columns
      * @param string $boolean
      * @param bool $not
      * @return BaseQueryBuilder
      */
-    public function whereNull(array|string $columns, string $boolean = 'and', bool $not = false): BaseQueryBuilder
+    public function whereNull(array|Expression|string $columns, string $boolean = 'and', bool $not = false): BaseQueryBuilder
     {
         $this->builder->whereNull($columns, $boolean, $not);
         return $this->baseQueryBuilder;
@@ -349,11 +351,11 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string|array $columns
+     * @param array|Expression|string $columns
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNotNull(string|array $columns, string $boolean = 'and'): BaseQueryBuilder
+    public function whereNotNull(array|Expression|string $columns, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNotNull($columns, $boolean);
         return $this->baseQueryBuilder;
@@ -361,13 +363,13 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param string $operator
      * @param DateTimeInterface|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereDate(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereDate(Expression|string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereDate($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -375,26 +377,26 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param string $operator
-     * @param DateTimeInterface|string|null $value
+     * @param DateTimeInterface|int|string|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereMonth(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereMonth(Expression|string $column, string $operator, DateTimeInterface|int|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereMonth($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
     }
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param string $operator
-     * @param DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|int|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereDay(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereDay(Expression|string $column, string $operator, DateTimeInterface|string|int|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereDay($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -402,13 +404,13 @@ class BaseQueryBuilderExtend
 
 
     /**
-     * @param string $column
+     * @param Expression|string $column
      * @param string $operator
-     * @param DateTimeInterface|string|null $value
+     * @param DateTimeInterface|string|int|null $value
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereYear(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereYear(Expression|string $column, string $operator, DateTimeInterface|string|int|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereYear($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -422,7 +424,7 @@ class BaseQueryBuilderExtend
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereTime(string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
+    public function whereTime(Expression|string $column, string $operator, DateTimeInterface|string|null $value = null, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereTime($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
