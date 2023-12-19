@@ -257,12 +257,12 @@ class BaseQueryBuilderExtend
 
     /**
      * @param string $column
-     * @param array $values
+     * @param iterable $values
      * @param string $boolean
      * @param bool $not
      * @return BaseQueryBuilder
      */
-    public function whereBetween(string $column, array $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
+    public function whereBetween(string $column, iterable $values, string $boolean = 'and', bool $not = false): BaseQueryBuilder
     {
         $this->builder->whereBetween($column, $values, $boolean, $not);
         return $this->baseQueryBuilder;
