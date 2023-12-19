@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method getAllData(array $whereClause = [], array $columns = ["*"])
  * @method static getDataById(string|int|array $id, array $columns = ["*"])
  * @method getDataById(string|int|array $id, array $columns = ["*"])
- * @method static getSingleData(array $whereClause = [], array $columns = ["*"])
+ * @method static  getSingleData(array $whereClause = [], array $columns = ["*"])
  * @method getSingleData(array $whereClause = [], array $columns = ["*"])
  * @method static addNewData(array $requestedData)
  * @method addNewData(array $requestedData)
@@ -63,16 +63,16 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method BaseQueryBuilder whereNotBetweenColumns(string $column, array $values, string $boolean = 'and')
  * @method static BaseQueryBuilder whereBetweenColumns(string $column, array $values, string $boolean = 'and', bool $not = false)
  * @method BaseQueryBuilder whereBetweenColumns(string $column, array $values, string $boolean = 'and', bool $not = false)
- * @method static BaseQueryBuilder whereNotBetween(string $column, array|string $values, string $boolean = 'and')
- * @method BaseQueryBuilder whereNotBetween(string $column, array|string $values, string $boolean = 'and')
- * @method static BaseQueryBuilder whereBetween(string $column, array $values, string $boolean = 'and', bool $not = false)
- * @method BaseQueryBuilder whereBetween(string $column, array $values, string $boolean = 'and', bool $not = false)
- * @method static BaseQueryBuilder whereNot($column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
- * @method BaseQueryBuilder whereNot($column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
- * @method static BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, ?string $value = null)
- * @method BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, ?string $value = null)
- * @method static BaseQueryBuilder where(array|string $column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
- * @method BaseQueryBuilder where(array|string $column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and')
+ * @method static BaseQueryBuilder whereNotBetween(string $column, iterable $values, string $boolean = 'and')
+ * @method BaseQueryBuilder whereNotBetween(string $column, iterable $values, string $boolean = 'and')
+ * @method static BaseQueryBuilder whereBetween(string $column, iterable $values, string $boolean = 'and', bool $not = false)
+ * @method BaseQueryBuilder whereBetween(string $column, iterable $values, string $boolean = 'and', bool $not = false)
+ * @method static BaseQueryBuilder whereNot($column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and')
+ * @method BaseQueryBuilder whereNot($column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and')
+ * @method static BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, mixed $value = null)
+ * @method BaseQueryBuilder orWhere(array|string $column, ?string $operator = null, mixed $value = null)
+ * @method static BaseQueryBuilder where(array|string $column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and')
+ * @method BaseQueryBuilder where(array|string $column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and')
  * @method static BaseQueryBuilder orWhereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
  * @method BaseQueryBuilder orWhereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
  * @method static BaseQueryBuilder whereHas(string $relation, Closure|null $callback = null, string $operator = '>=', int $count = 1)
@@ -140,7 +140,7 @@ abstract class BaseQueryBuilder implements BaseQueryBuilderInterface
      */
     public static function init(): self
     {
-        $class = get_called_class();
+        $class = static::class;
         return new $class;
     }
 

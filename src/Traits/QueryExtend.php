@@ -5,6 +5,7 @@ namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
 use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilderExtend;
 use Exception;
+use RuntimeException;
 
 trait QueryExtend
 {
@@ -42,7 +43,7 @@ trait QueryExtend
     public function overload(string $name, array $arguments): mixed
     {
         if (!property_exists($this, 'builder')) {
-            throw new Exception("Property 'builder' does not exist or is not initialized.");
+            throw new RuntimeException("Property 'builder' does not exist or is not initialized.");
         }
 
         if (method_exists(new BaseQueryBuilderExtend($this), $name)) {
