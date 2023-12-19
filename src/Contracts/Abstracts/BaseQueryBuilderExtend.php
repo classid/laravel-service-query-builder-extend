@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @template T
+ */
 class BaseQueryBuilderExtend
 {
     use QueryOrder {
@@ -457,13 +460,13 @@ class BaseQueryBuilderExtend
      * @param int|null $perPage
      * @return LengthAwarePaginator
      */
-    public function getAllDataPaginated(array $whereClause = [], array|null $columns = null, ?int $perPage = null):LengthAwarePaginator
+    public function getAllDataPaginated(array $whereClause = [], array|null $columns = null, ?int $perPage = null): LengthAwarePaginator
     {
         if (!$perPage) {
             $perPage = request()->query(config("queryextend.perpage.key"), config('queryextend.perpage.value'));
         }
 
-        if ($columns){
+        if ($columns) {
             $this->builder->addSelect($columns);
         }
         return $this->builder
@@ -474,11 +477,11 @@ class BaseQueryBuilderExtend
     /**
      * @param array $whereClause
      * @param array|null $columns
-     * @return Builder[]|Collection
+     * @return Collection
      */
-    public function getAllData(array $whereClause = [], array|null $columns = null): Collection|array
+    public function getAllData(array $whereClause = [], array|null $columns = null): Collection
     {
-        if ($columns){
+        if ($columns) {
             $this->builder->addSelect($columns);
         }
         return $this->builder
@@ -489,11 +492,11 @@ class BaseQueryBuilderExtend
     /**
      * @param string|int|array $id
      * @param array|null $columns
-     * @return Builder|Builder[]|Collection|Model|null
+     * @return Builder|Builder[]|Collection|T|null
      */
     public function getDataById(string|int|array $id, array|null $columns = null): Model|Collection|Builder|array|null
     {
-        if ($columns){
+        if ($columns) {
             $this->builder->addSelect($columns);
         }
         return $this->builder->find($id);
@@ -502,11 +505,11 @@ class BaseQueryBuilderExtend
     /**
      * @param array $whereClause
      * @param array|null $columns
-     * @return Builder|Model|null
+     * @return Builder|T|null
      */
     public function getSingleData(array $whereClause = [], array|null $columns = null): Model|Builder|null
     {
-        if ($columns){
+        if ($columns) {
             $this->builder->addSelect($columns);
         }
         return $this->builder
@@ -515,8 +518,9 @@ class BaseQueryBuilderExtend
     }
 
     /**
+     *
      * @param array $requestedData
-     * @return Builder|Model
+     * @return T|Builder
      */
     public function addNewData(array $requestedData): Model|Builder
     {
@@ -557,9 +561,9 @@ class BaseQueryBuilderExtend
      * @param array $requestedData
      * @param array $columns
      * @param bool $isReturnObject
-     * @return Collection|int|array|null
+     * @return Collection|int
      */
-    public function updateDataByWhereClause(array $whereClause, array $requestedData, array $columns = ["*"], bool $isReturnObject = false): Collection|int|array|null
+    public function updateDataByWhereClause(array $whereClause, array $requestedData, array $columns = ["*"], bool $isReturnObject = false): Collection|int
     {
         $updatedData = $this->builder
             ->where($whereClause)

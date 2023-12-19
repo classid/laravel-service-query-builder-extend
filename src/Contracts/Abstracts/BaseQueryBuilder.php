@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method getAllData(array $whereClause = [], array $columns = ["*"])
  * @method static getDataById(string|int|array $id, array $columns = ["*"])
  * @method getDataById(string|int|array $id, array $columns = ["*"])
- * @method static getSingleData(array $whereClause = [], array $columns = ["*"])
+ * @method static  getSingleData(array $whereClause = [], array $columns = ["*"])
  * @method getSingleData(array $whereClause = [], array $columns = ["*"])
  * @method static addNewData(array $requestedData)
  * @method addNewData(array $requestedData)
@@ -140,7 +140,7 @@ abstract class BaseQueryBuilder implements BaseQueryBuilderInterface
      */
     public static function init(): self
     {
-        $class = get_called_class();
+        $class = static::class;
         return new $class;
     }
 
