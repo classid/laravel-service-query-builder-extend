@@ -217,11 +217,11 @@ class BaseQueryBuilderExtend
     /**
      * @param array|string $column
      * @param string|null $operator
-     * @param string|null $value
+     * @param mixed $value
      * @param string|null $boolean
      * @return BaseQueryBuilder
      */
-    public function where(array|string $column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and'): BaseQueryBuilder
+    public function where(array|string $column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->where($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -231,10 +231,10 @@ class BaseQueryBuilderExtend
     /**
      * @param array|string $column
      * @param string|null $operator
-     * @param string|null $value
+     * @param mixed $value
      * @return BaseQueryBuilder
      */
-    public function orWhere(array|string $column, ?string $operator = null, ?string $value = null): BaseQueryBuilder
+    public function orWhere(array|string $column, ?string $operator = null, mixed $value = null): BaseQueryBuilder
     {
         $this->builder->orWhere($column, $operator, $value);
         return $this->baseQueryBuilder;
@@ -244,11 +244,11 @@ class BaseQueryBuilderExtend
     /**
      * @param $column
      * @param string|null $operator
-     * @param string|null $value
+     * @param mixed $value
      * @param string|null $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNot($column, ?string $operator = null, ?string $value = null, ?string $boolean = 'and'): BaseQueryBuilder
+    public function whereNot($column, ?string $operator = null, mixed $value = null, ?string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNot($column, $operator, $value, $boolean);
         return $this->baseQueryBuilder;
@@ -271,11 +271,11 @@ class BaseQueryBuilderExtend
 
     /**
      * @param string $column
-     * @param array|string $values
+     * @param iterable $values
      * @param string $boolean
      * @return BaseQueryBuilder
      */
-    public function whereNotBetween(string $column, array|string $values, string $boolean = 'and'): BaseQueryBuilder
+    public function whereNotBetween(string $column, iterable $values, string $boolean = 'and'): BaseQueryBuilder
     {
         $this->builder->whereNotBetween($column, $values, $boolean);
         return $this->baseQueryBuilder;
@@ -457,26 +457,31 @@ class BaseQueryBuilderExtend
      * @param int|null $perPage
      * @return LengthAwarePaginator
      */
-    public function getAllDataPaginated(array $whereClause = [], array $columns = ["*"], ?int $perPage = null):LengthAwarePaginator
+    public function getAllDataPaginated(array $whereClause = [], array|null $columns = null, ?int $perPage = null):LengthAwarePaginator
     {
         if (!$perPage) {
-            $perPage = request()->query("perpage", config('queryextend.perpage'));
+            $perPage = request()->query(config("queryextend.perpage.key"), config('queryextend.perpage.value'));
+        }
+
+        if ($columns){
+            $this->builder->addSelect($columns);
         }
         return $this->builder
-            ->select($columns)
             ->where($whereClause)
             ->paginate($perPage);
     }
 
     /**
      * @param array $whereClause
-     * @param array $columns
+     * @param array|null $columns
      * @return Builder[]|Collection
      */
-    public function getAllData(array $whereClause = [], array $columns = ["*"]): Collection|array
+    public function getAllData(array $whereClause = [], array|null $columns = null): Collection|array
     {
+        if ($columns){
+            $this->builder->addSelect($columns);
+        }
         return $this->builder
-            ->select($columns)
             ->where($whereClause)
             ->get();
     }
@@ -486,20 +491,25 @@ class BaseQueryBuilderExtend
      * @param array $columns
      * @return Builder|Builder[]|Collection|Model|null
      */
-    public function getDataById(string|int|array $id, array $columns = ["*"])
+    public function getDataById(string|int|array $id, array|null $columns = null)
     {
-        return $this->builder->select($columns)->find($id);
+        if ($columns){
+            $this->builder->addSelect($columns);
+        }
+        return $this->builder->find($id);
     }
 
     /**
      * @param array $whereClause
-     * @param array $columns
+     * @param array|null $columns
      * @return Builder|Model|object|null
      */
-    public function getSingleData(array $whereClause = [], array $columns = ["*"])
+    public function getSingleData(array $whereClause = [], array|null $columns = null)
     {
+        if ($columns){
+            $this->builder->addSelect($columns);
+        }
         return $this->builder
-            ->select($columns)
             ->where($whereClause)
             ->first();
     }
