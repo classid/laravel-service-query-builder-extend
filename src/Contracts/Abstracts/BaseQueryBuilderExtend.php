@@ -453,7 +453,7 @@ class BaseQueryBuilderExtend
 
     /**
      * @param array $whereClause
-     * @param array $columns
+     * @param array|null $columns
      * @param int|null $perPage
      * @return LengthAwarePaginator
      */
@@ -488,10 +488,10 @@ class BaseQueryBuilderExtend
 
     /**
      * @param string|int|array $id
-     * @param array $columns
+     * @param array|null $columns
      * @return Builder|Builder[]|Collection|Model|null
      */
-    public function getDataById(string|int|array $id, array|null $columns = null)
+    public function getDataById(string|int|array $id, array|null $columns = null): Model|Collection|Builder|array|null
     {
         if ($columns){
             $this->builder->addSelect($columns);
@@ -502,9 +502,9 @@ class BaseQueryBuilderExtend
     /**
      * @param array $whereClause
      * @param array|null $columns
-     * @return Builder|Model|object|null
+     * @return Builder|Model|null
      */
-    public function getSingleData(array $whereClause = [], array|null $columns = null)
+    public function getSingleData(array $whereClause = [], array|null $columns = null): Model|Builder|null
     {
         if ($columns){
             $this->builder->addSelect($columns);
@@ -518,7 +518,7 @@ class BaseQueryBuilderExtend
      * @param array $requestedData
      * @return Builder|Model
      */
-    public function addNewData(array $requestedData)
+    public function addNewData(array $requestedData): Model|Builder
     {
         return $this->builder->create($requestedData);
     }
@@ -541,7 +541,7 @@ class BaseQueryBuilderExtend
      * @param bool $isReturnObject
      * @return Builder|Builder[]|Collection|Model|int|null
      */
-    public function updateDataById(string|int $id, array $requestedData, array $columns = ["*"], bool $isReturnObject = true)
+    public function updateDataById(string|int $id, array $requestedData, array $columns = ["*"], bool $isReturnObject = true): Model|Collection|Builder|int|array|null
     {
         $updatedData = $this->builder
             ->where("id", $id)
@@ -557,9 +557,9 @@ class BaseQueryBuilderExtend
      * @param array $requestedData
      * @param array $columns
      * @param bool $isReturnObject
-     * @return Collection|int|null
+     * @return Collection|int|array|null
      */
-    public function updateDataByWhereClause(array $whereClause, array $requestedData, array $columns = ["*"], bool $isReturnObject = false)
+    public function updateDataByWhereClause(array $whereClause, array $requestedData, array $columns = ["*"], bool $isReturnObject = false): Collection|int|array|null
     {
         $updatedData = $this->builder
             ->where($whereClause)
@@ -573,7 +573,7 @@ class BaseQueryBuilderExtend
      * @param string|int $id
      * @return mixed
      */
-    public function deleteDataById(string|int $id)
+    public function deleteDataById(string|int $id): mixed
     {
         return $this->builder
             ->where("id", $id)
@@ -584,7 +584,7 @@ class BaseQueryBuilderExtend
      * @param array $whereClause
      * @return mixed
      */
-    public function deleteDataByWhereClause(array $whereClause)
+    public function deleteDataByWhereClause(array $whereClause): mixed
     {
         return $this->builder
             ->where($whereClause)
