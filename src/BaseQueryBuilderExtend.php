@@ -104,7 +104,11 @@ class BaseQueryBuilderExtend
      */
     public function with(array|string $relations, Closure|null|string $callback = null): BaseQueryBuilder
     {
-        $this->builder->with($relations, $callback);
+        if (is_null($callback)) {
+            $this->builder->with($relations);
+        } else {
+            $this->builder->with($relations, $callback);
+        }
         return $this->baseQueryBuilder;
     }
 
