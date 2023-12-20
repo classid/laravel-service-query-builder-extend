@@ -2,8 +2,8 @@
 
 namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 
+use Classid\LaravelServiceQueryBuilderExtend\BaseQueryBuilderExtend;
 use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
-use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilderExtend;
 use Exception;
 use RuntimeException;
 

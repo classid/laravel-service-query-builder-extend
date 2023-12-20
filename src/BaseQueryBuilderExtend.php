@@ -1,7 +1,8 @@
 <?php
 
-namespace Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts;
+namespace Classid\LaravelServiceQueryBuilderExtend;
 
+use Classid\LaravelServiceQueryBuilderExtend\Contracts\Abstracts\BaseQueryBuilder;
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryFilter;
 use Classid\LaravelServiceQueryBuilderExtend\Traits\QueryOrder;
 use Closure;

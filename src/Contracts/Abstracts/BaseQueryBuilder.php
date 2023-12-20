@@ -94,7 +94,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method static BaseQueryBuilder without(array|string $relations)
  * @method BaseQueryBuilder without(array|string $relations)
  * @method static BaseQueryBuilder with(array|string $relations)
- * @method BaseQueryBuilder with(array|string $relations, Closure|string|null $callback)
+ * @method BaseQueryBuilder with(array|string $relations, Closure|string|null $callback = null)
  * @method static int delete()
  * @method int delete()
  * @method static int update(array $requestedData)
