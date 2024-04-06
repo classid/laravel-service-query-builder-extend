@@ -92,18 +92,18 @@ trait ValidationInput
      */
     protected function getValidatedData(string $key = null): array|string|null
     {
+        $validated = $this->validatedData;
+        
         if ($key) {
-            $validated = $this->validatedData;
             $explodedKeys = explode(".", $key);
             foreach ($explodedKeys as $explodedKey) {
                 $validated = is_array($validated) ?
                     ($validated[$explodedKey] ?? null) :
                     null;
             }
-
-            return $validated;
         }
-        return $this->validatedData;
+        
+        return $validated;
     }
 
     /**
