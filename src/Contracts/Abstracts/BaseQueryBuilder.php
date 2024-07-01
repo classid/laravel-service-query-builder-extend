@@ -102,6 +102,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method static Collection get()
  * @method Collection get()
  * @mixin QueryExtend
+ * @method static int getPerPage()
  *
  */
 abstract class BaseQueryBuilder implements BaseQueryBuilderInterface

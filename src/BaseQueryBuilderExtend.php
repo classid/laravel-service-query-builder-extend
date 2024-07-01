@@ -48,6 +48,15 @@ class BaseQueryBuilderExtend
     }
 
     /**
+     * @return int
+     */
+    public static function getPerPage(): int
+    {
+        return request()->query(config("servicerepo.perpage.key"), config('servicerepo.perpage.value'));
+    }
+
+
+    /**
      * @param array|null $filterableColumns
      * @param array|null $relationFilterableColumns
      * @return BaseQueryBuilder
@@ -470,7 +479,7 @@ class BaseQueryBuilderExtend
     public function getAllDataPaginated(array $whereClause = [], array|null $columns = null, ?int $perPage = null): LengthAwarePaginator
     {
         if (!$perPage) {
-            $perPage = request()->query(config("queryextend.perpage.key"), config('queryextend.perpage.value'));
+            $perPage = self::getPerPage();
         }
 
         if ($columns) {
