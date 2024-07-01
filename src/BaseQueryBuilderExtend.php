@@ -55,6 +55,19 @@ class BaseQueryBuilderExtend
         return request()->query(config("servicerepo.perpage.key"), config('servicerepo.perpage.value'));
     }
 
+    /**
+     * @param string $connection
+     * @return BaseQueryBuilder
+     */
+    public function on(string $connection): BaseQueryBuilder
+    {
+        $modelInstance = $this->baseQueryBuilder->builder->getModel();
+        $modelInstance->setConnection($connection);
+        $this->baseQueryBuilder->builder = $modelInstance->newQuery();
+
+        return $this->baseQueryBuilder;
+    }
+
 
     /**
      * @param array|null $filterableColumns
