@@ -52,7 +52,7 @@ class BaseQueryBuilderExtend
      */
     public static function getPerPage(): int
     {
-        return request()->query(config("servicerepo.perpage.key"), config('servicerepo.perpage.value'));
+        return request()->query(config("queryextend.perpage.key"), config('queryextend.perpage.value'));
     }
 
     /**
