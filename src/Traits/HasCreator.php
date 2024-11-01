@@ -1,6 +1,6 @@
 <?php
 
-namespace Iqbalatma\LaravelServiceRepo\Traits;
+namespace Classid\LaravelServiceQueryBuilderExtend\Traits;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
